@@ -3,6 +3,13 @@
 Static site for Silver Star Plumbing (owner: Sergio Estrella). No build step,
 no framework, no dependencies. Open `index.html` and it runs.
 
+**Live preview:** https://ascendral.github.io/silverstar-plumbing/
+
+That preview is a review copy, not the launch. `js/main.js` injects
+`noindex,nofollow` on any host that isn't `silverstarplumbing.co`, so search
+engines skip it — the real domain is unaffected. To take the preview down:
+`gh repo delete Ascendral/silverstar-plumbing`.
+
 ## Structure
 
 ```
