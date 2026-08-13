@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#0b1c2c"/><stop offset="1" stop-color="#153352"/>
+  </linearGradient>
+  <linearGradient id="steel" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#8fa6bb"/><stop offset=".35" stop-color="#c9d7e4"/>
+    <stop offset=".62" stop-color="#7d94a9"/><stop offset="1" stop-color="#a9bccd"/>
+  </linearGradient>
+  <linearGradient id="glass" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#4fc3f7" stop-opacity=".15"/>
+    <stop offset=".5" stop-color="#4fc3f7" stop-opacity=".45"/>
+    <stop offset="1" stop-color="#4fc3f7" stop-opacity=".15"/>
+  </linearGradient>
+  <radialGradient id="glow" cx=".5" cy=".5" r=".5">
+    <stop offset="0" stop-color="#2e9be0" stop-opacity=".55"/>
+    <stop offset="1" stop-color="#2e9be0" stop-opacity="0"/>
+  </radialGradient>
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M40 0H0V40" fill="none" stroke="#7fb6e8" stroke-opacity=".10" stroke-width="1"/>
+  </pattern>
+  
+</defs>
+<rect width="800" height="600" fill="url(#bg)"/>
+<rect width="800" height="600" fill="url(#grid)"/>
+<ellipse cx="400" cy="330" rx="330" ry="250" fill="url(#glow)"/>
+
+<rect x="120" y="400" width="560" height="18" rx="6" fill="#0b1c2c" opacity=".7" stroke="#3f6a95" stroke-width="1.5"/><rect x="120" y="457.0" width="560" height="26" rx="13.0" fill="url(#steel)" stroke="#3f6a95" stroke-width="1.5"/><circle cx="430" cy="470" r="9" fill="#ff6b52"/><path transform="translate(430,424) scale(0.55)" opacity="0.9" fill="#4fc3f7" d="M0,-30 C14,-10 22,2 22,12 A22,22 0 0 1 -22,12 C-22,2 -14,-10 0,-30 Z"/><path d="M384.7,462.0 A46,46 0 0 1 475.3,462.0" fill="none" stroke="#2e9be0" stroke-width="4" stroke-linecap="round" opacity="0.85"/><path d="M355.2,456.8 A76,76 0 0 1 504.8,456.8" fill="none" stroke="#2e9be0" stroke-width="4" stroke-linecap="round" opacity="0.63"/><path d="M325.6,451.6 A106,106 0 0 1 534.4,451.6" fill="none" stroke="#2e9be0" stroke-width="4" stroke-linecap="round" opacity="0.41"/><path d="M296.1,446.4 A136,136 0 0 1 563.9,446.4" fill="none" stroke="#2e9be0" stroke-width="4" stroke-linecap="round" opacity="0.19"/><rect x="250" y="150" width="300" height="180" rx="18" fill="#0b1c2c" stroke="#c9d7e4" stroke-width="3"/><rect x="272" y="172" width="256" height="120" rx="10" fill="#153352" opacity=".85"/><polyline points="280,232 304,232 328,232 352,232 376,232 400,262 424,236 448,232 472,232 496,232 520,232" fill="none" stroke="#4fc3f7" stroke-width="3.5" stroke-linecap="round"/><circle cx="400" cy="312" r="7" fill="#2e9be0"/>
+<rect x="0" y="596" width="800" height="4" fill="#2e9be0" opacity=".7"/>
+</svg>

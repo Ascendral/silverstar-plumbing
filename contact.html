@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — Request Plumbing Service | Silver Star Plumbing</title>
+<meta name="description" content="Call, text or send a service request to Silver Star Plumbing. Serving Brentwood, Discovery Bay, Oakley, Patterson and the surrounding Bay Area and Central Valley.">
+<link rel="canonical" href="https://silverstarplumbing.co/contact.html">
+<link rel="icon" href="img/logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header" id="site-header"></header>
+
+<main id="main">
+
+  <section class="band-dark on-dark">
+    <div class="wrap">
+      <p class="eyebrow light">Contact</p>
+      <h2>Fastest way to get help: call</h2>
+      <p class="lede" style="margin-bottom:2rem">Plumbing problems don't wait for email. If water is running or you have no hot water, pick up the phone — the form below is for everything that can wait a bit.</p>
+
+      <div class="grid grid-2" style="align-items:start">
+        <div class="contact-rail" id="contact-rail"></div>
+
+        <div class="form-wrap" style="color:var(--ink)">
+          <h3 style="margin-bottom:.9rem">Request service</h3>
+          <form id="request-form" novalidate>
+            <input type="text" name="_hp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+
+            <div class="field-row">
+              <div class="field">
+                <label for="f-name">Name <span class="req">*</span></label>
+                <input id="f-name" name="name" type="text" autocomplete="name" required>
+                <span class="field-error">We need a name.</span>
+              </div>
+              <div class="field">
+                <label for="f-phone">Phone <span class="req">*</span></label>
+                <input id="f-phone" name="phone" type="tel" autocomplete="tel" required>
+                <span class="field-error">A 10-digit phone number, please.</span>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="f-email">Email</label>
+                <input id="f-email" name="email" type="email" autocomplete="email">
+              </div>
+              <div class="field">
+                <label for="f-city">City</label>
+                <input id="f-city" name="city" type="text" autocomplete="address-level2">
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="f-service">What do you need? <span class="req">*</span></label>
+              <select id="f-service" name="service" required>
+                <option value="">Choose one…</option>
+              </select>
+              <span class="field-error">Pick the closest match.</span>
+            </div>
+
+            <div class="field">
+              <label for="f-message">What's going on? <span class="req">*</span></label>
+              <textarea id="f-message" name="message" required placeholder="Where is it, when did it start, and what have you already tried? Photos help — text them to the number on this page."></textarea>
+              <span class="field-error">A sentence or two is enough.</span>
+            </div>
+
+            <button class="btn btn-primary" type="submit" style="width:100%">Send Request</button>
+            <p class="form-note">Urgent? Don't wait on the form — call or text. We answer the phone.</p>
+            <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Before we get there</p>
+      <h2>If water is running right now</h2>
+      <div class="grid grid-3" style="margin-top:1.8rem">
+        <div class="step"><h3>Shut the water off</h3><p>Main valve is usually at the front of the house near the hose bib, or in the meter box at the curb. Turn it clockwise until it stops.</p></div>
+        <div class="step"><h3>Kill power if it's near water</h3><p>If water is anywhere near outlets, panels or the water heater, shut off the breaker before you go near it.</p></div>
+        <div class="step"><h3>Then call</h3><p>Tell us what you see and what you already shut off. Text a photo to the same number — it saves time on both ends.</p></div>
+      </div>
+      <div class="cta-actions" style="justify-content:flex-start;margin-top:1.8rem">
+        <a class="btn btn-call" href="#" data-phone data-phone-text></a>
+        <a class="btn btn-ghost" href="#" data-sms>Text us a photo</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer" id="site-footer"></footer>
+<div class="call-bar" id="call-bar"></div>
+
+<script src="js/config.js"></script>
+<script src="js/main.js"></script>
+<script src="js/contact.js"></script>
+</body>
+</html>
