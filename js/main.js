@@ -206,6 +206,16 @@
       t.classList.add("reveal");
       io.observe(t);
     });
+
+    /* Safety net. This is a lead-generating site: a customer must never land
+       on invisible service cards because an observer didn't fire (odd browser,
+       restored scroll position, a tool that renders without scrolling). After
+       3s anything still hidden is shown unconditionally. Elements below the
+       fold are off-screen when this runs, so nothing visibly jumps. */
+    setTimeout(function () {
+      io.disconnect();
+      Array.prototype.forEach.call(targets, function (t) { t.classList.add("in"); });
+    }, 3000);
   }
 
   /* ---------- footer ---------- */
