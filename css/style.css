@@ -143,6 +143,92 @@ section { padding: clamp(3.6rem, 8vw, 6.4rem) 0; }
 }
 .nav-toggle svg { width: 24px; height: 24px; fill: currentColor; }
 
+/* ---------- services dropdown ----------
+   Every service reachable in one step from any page. */
+.nav-item { position: relative; display: flex; align-items: center; gap: .25rem; }
+.nav-caret {
+  background: none; border: 0; color: rgba(255, 255, 255, .82); padding: .2rem;
+  display: flex; align-items: center; border-radius: 6px;
+}
+.nav-caret svg { width: 15px; height: 15px; fill: currentColor; transition: transform .2s ease; }
+.nav-item.open .nav-caret svg { transform: rotate(180deg); }
+
+.mega {
+  position: absolute; top: calc(100% + .55rem); left: -.6rem; z-index: 95;
+  min-width: 460px; padding: .6rem;
+  display: grid; grid-template-columns: 1fr 1fr; gap: .1rem;
+  background: var(--navy-2); border: 1px solid var(--line-dark);
+  border-radius: 16px; box-shadow: var(--shadow-lg);
+  opacity: 0; visibility: hidden; transform: translateY(6px);
+  transition: opacity .18s ease, transform .18s ease, visibility .18s;
+}
+.nav-item:hover .mega, .nav-item:focus-within .mega, .nav-item.open .mega {
+  opacity: 1; visibility: visible; transform: none;
+}
+.nav .mega a {
+  font-family: var(--body); text-transform: none; letter-spacing: 0;
+  font-size: .94rem; font-weight: 500; padding: .5rem .7rem;
+  border-radius: 9px; border-bottom: 0; color: rgba(255, 255, 255, .84);
+}
+.nav .mega a:hover, .nav .mega a:focus-visible {
+  background: rgba(79, 195, 247, .14); color: #fff; border-bottom: 0;
+}
+
+@media (max-width: 940px) {
+  .nav-item { flex-wrap: wrap; width: 100%; border-bottom: 1px solid var(--line-dark); }
+  .nav-item > a { flex: 1; border-bottom: 0 !important; }
+  .nav-caret { padding: .85rem .4rem; }
+  .mega {
+    position: static; min-width: 0; width: 100%; grid-template-columns: 1fr;
+    background: none; border: 0; box-shadow: none; padding: 0 0 .6rem .4rem;
+    display: none; opacity: 1; visibility: visible; transform: none;
+  }
+  .nav-item.open .mega { display: grid; }
+  .nav-item:hover .mega, .nav-item:focus-within .mega { display: none; }
+  .nav-item.open:hover .mega, .nav-item.open:focus-within .mega { display: grid; }
+}
+
+/* ---------- in-page service jump bar (services page) ---------- */
+.jump-bar {
+  position: sticky; top: 62px; z-index: 70;
+  background: rgba(11, 28, 44, .96); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line-dark);
+  display: flex; gap: .4rem; overflow-x: auto; scrollbar-width: none;
+  padding: .6rem 4vw;
+}
+.jump-bar::-webkit-scrollbar { display: none; }
+.jump-bar a {
+  flex: none; white-space: nowrap;
+  font-family: var(--display); text-transform: uppercase; letter-spacing: .06em;
+  font-size: .95rem; color: rgba(255, 255, 255, .72);
+  padding: .4rem .85rem; border-radius: 999px; border: 1px solid transparent;
+}
+.jump-bar a:hover { color: #fff; border-color: var(--line-dark); }
+.jump-bar a.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+/* ---------- back to top ---------- */
+.to-top {
+  position: fixed; right: 18px; bottom: 18px; z-index: 88;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--navy); color: #fff; border: 1px solid var(--line-dark);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow); opacity: 0; pointer-events: none;
+  transform: translateY(10px); transition: opacity .22s ease, transform .22s ease;
+}
+.to-top.show { opacity: 1; pointer-events: auto; transform: none; }
+.to-top svg { width: 22px; height: 22px; fill: currentColor; }
+@media (max-width: 780px) { .to-top { bottom: 70px; } }
+
+/* ---------- scroll reveal ---------- */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.in { opacity: 1; transform: none; }
+
+/* ---------- visible keyboard focus ---------- */
+a:focus-visible, button:focus-visible, input:focus-visible,
+select:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--water); outline-offset: 3px; border-radius: 4px;
+}
+
 @media (max-width: 940px) {
   .nav {
     position: fixed; inset: 62px 0 auto 0; flex-direction: column; gap: 0;

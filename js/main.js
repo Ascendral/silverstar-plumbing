@@ -23,7 +23,9 @@
     menu: '<path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/>',
     close: '<path d="m19 6.4-1.4-1.4-5.6 5.6L6.4 5 5 6.4l5.6 5.6L5 17.6 6.4 19l5.6-5.6 5.6 5.6 1.4-1.4-5.6-5.6z"/>',
     star: '<path d="m12 17.3 6.2 3.7-1.6-7 5.4-4.7-7.1-.6L12 2 9.1 8.7 2 9.3l5.4 4.7-1.6 7z"/>',
-    mail: '<path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5z"/>'
+    mail: '<path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5z"/>',
+    caret: '<path d="M7 10l5 5 5-5z"/>',
+    up: '<path d="m12 8-6 6 1.4 1.4L12 10.8l4.6 4.6L18 14z"/>'
   };
 
   function svg(name, cls) {
@@ -74,8 +76,19 @@
     if (!mount) return;
     var active = SINGLE ? "" : (location.pathname.split("/").pop() || "index.html");
     var links = NAV.map(function (n) {
-      return '<a href="' + page(n.href, n.anchor) + '"' +
+      var a = '<a href="' + page(n.href, n.anchor) + '"' +
         (n.href === active ? ' class="active" aria-current="page"' : "") + ">" + n.label + "</a>";
+      if (n.href !== "services.html") return a;
+
+      /* Services gets a dropdown of every service, so a customer is never
+         more than one tap from the thing they actually came here for. */
+      var items = C.services.map(function (s) {
+        return '<a href="' + page("services.html#" + s.id, s.id) + '">' + esc(s.name) + "</a>";
+      }).join("");
+      return '<span class="nav-item">' + a +
+        '<button class="nav-caret" aria-label="Show all services" aria-expanded="false">' +
+        svg("caret") + "</button>" +
+        '<span class="mega">' + items + "</span></span>";
     }).join("");
 
     mount.innerHTML =
@@ -99,6 +112,99 @@
       var open = nav.classList.toggle("open");
       btn.setAttribute("aria-expanded", String(open));
       btn.innerHTML = svg(open ? "close" : "menu");
+    });
+
+    var caret = nav.querySelector(".nav-caret");
+    if (caret) {
+      var item = caret.parentNode;
+      caret.addEventListener("click", function (e) {
+        e.preventDefault();
+        var open = item.classList.toggle("open");
+        caret.setAttribute("aria-expanded", String(open));
+      });
+      document.addEventListener("click", function (e) {
+        if (!item.contains(e.target)) {
+          item.classList.remove("open");
+          caret.setAttribute("aria-expanded", "false");
+        }
+      });
+      nav.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          item.classList.remove("open");
+          caret.setAttribute("aria-expanded", "false");
+        }
+      });
+    }
+  }
+
+  /* ---------- in-page jump bar with scroll-spy (services page) ---------- */
+  function renderJumpBar() {
+    var mount = el("svc-jump");
+    if (!mount) return;
+    mount.innerHTML = C.services.map(function (s) {
+      return '<a href="#' + s.id + '" data-jump="' + s.id + '">' + esc(s.name) + "</a>";
+    }).join("");
+
+    var links = {};
+    Array.prototype.forEach.call(mount.querySelectorAll("[data-jump]"), function (a) {
+      links[a.getAttribute("data-jump")] = a;
+    });
+    if (!("IntersectionObserver" in window)) return;
+
+    var current = null;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var id = en.target.id;
+        if (id === current || !links[id]) return;
+        if (current && links[current]) links[current].classList.remove("active");
+        links[id].classList.add("active");
+        current = id;
+        /* keep the active chip in view without scrolling the page */
+        var a = links[id];
+        mount.scrollTo({ left: a.offsetLeft - mount.clientWidth / 2 + a.clientWidth / 2, behavior: "smooth" });
+      });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+
+    Array.prototype.forEach.call(document.querySelectorAll(".svc"), function (s) { io.observe(s); });
+  }
+
+  /* ---------- back to top ---------- */
+  function renderToTop() {
+    var b = document.createElement("button");
+    b.className = "to-top";
+    b.type = "button";
+    b.setAttribute("aria-label", "Back to top");
+    b.innerHTML = svg("up");
+    b.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: reduceMotion() ? "auto" : "smooth" });
+    });
+    document.body.appendChild(b);
+    var tick = function () { b.classList.toggle("show", window.scrollY > 700); };
+    window.addEventListener("scroll", tick, { passive: true });
+    tick();
+  }
+
+  function reduceMotion() {
+    return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+
+  /* ---------- scroll reveal ---------- */
+  function initReveal() {
+    if (reduceMotion() || !("IntersectionObserver" in window)) return;
+    var targets = document.querySelectorAll(
+      "section .wrap > .grid, section .wrap > .chips, .svc, .faq-item, .owner-card");
+    if (!targets.length) return;
+    var io = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        en.target.classList.add("in");
+        obs.unobserve(en.target);
+      });
+    }, { rootMargin: "0px 0px -8% 0px" });
+    Array.prototype.forEach.call(targets, function (t) {
+      t.classList.add("reveal");
+      io.observe(t);
     });
   }
 
@@ -303,9 +409,12 @@
     renderTrust();
     renderContactRail();
     renderReviews();
+    renderJumpBar();
+    renderToTop();
     renderPhoneLinks();
     guardPreview();
     injectSchema();
+    initReveal();
     /* The page is built after DOM ready, so the browser's own hash jump
        lands in the wrong place. Re-run it once images have settled. */
     if (location.hash) {

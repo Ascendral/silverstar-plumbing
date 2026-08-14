@@ -84,6 +84,8 @@ BODY = """
     Water running where it shouldn't? <a href="#" data-phone>Call now</a> &mdash; emergencies get answered first.
   </div>
 
+  <nav class="jump-bar" id="svc-jump" aria-label="Jump to a service"></nav>
+
   <section id="services">
     <div class="wrap">
       <p class="eyebrow">What we do</p>
