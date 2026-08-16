@@ -79,27 +79,20 @@ CATEGORIES = [
 ]
 
 # ---- photos attached to a specific service --------------------------------
-# EXACT: the photo plainly shows that service.
-# NEAREST: no photo in the folder shows that service, so the closest related
-#   job is used (client's decision). For these the image alt text describes
-#   what the photo ACTUALLY shows rather than claiming it is that service,
-#   so nothing on the page asserts something untrue.
+# ONLY where the photo unmistakably shows that service. Anything else keeps
+# the generated illustration. An earlier pass filled every service using the
+# "nearest available" job; the result was four near-identical tankless-heater
+# photos labelled Water Heaters / Gas Lines / Shut-Off Valves / Emergency,
+# which read as a mistake to anyone looking at the page. Reverted.
 SERVICE_PHOTOS = {
-    # exact
-    "water-heaters":   "IMG_6179",   # tankless install, copper manifold
-    "shower-valves":   "IMG_6377",   # rain head, handheld, valve trim
-    "fixtures":        "IMG_5610",   # farmhouse sink + faucet
-    "gas-lines":       "IMG_1538",   # yellow gas line + shut-off at the heater
-    "repipe":          "IMG_4902",   # PEX manifold + distribution
-    "drains":          "IMG_6393",   # drain and vent lines roughed in
-    "shutoff-valves":  "IMG_1226",   # manifold with shut-off valves
-    # nearest available
-    "water-softeners": "IMG_6420",   # copper manifold / whole-house distribution
-    "reverse-osmosis": "IMG_0955",   # kitchen sink where an RO faucet lands
-    "leak-detection":  "IMG_3448",   # water lines inside framed walls
-    "emergency":       "IMG_0434",   # water heater install (no-hot-water calls)
+    "water-heaters": "IMG_6179",   # Navien tankless, copper manifold
+    "shower-valves": "IMG_6377",   # rain head, handheld, valve trim
+    "fixtures":      "IMG_5610",   # farmhouse sink + faucet
+    "repipe":        "IMG_4902",   # PEX manifold + water distribution
+    "drains":        "IMG_6393",   # ABS drain and vent stacks in framing
 }
-NEAREST = {"water-softeners", "reverse-osmosis", "leak-detection", "emergency"}
+NEAREST = set()   # nothing is assigned on "close enough" any more
+
 HERO = "IMG_0425"
 
 

@@ -28,23 +28,18 @@ including materials, and must be disclosed). Ask him directly before launch.
 
 ## Content that would make it much stronger
 
-1. **Four services show a related photo, not their own work.** All 11 services
-   now carry a real photo (your call). Seven are exact — water heaters, shower
-   valves, gas lines, repipes, drains, shut-off valves, faucets/fixtures.
-   Four use the **nearest available** job instead, because nothing in the
-   folder shows them:
+1. **Six services still need their own photo.** Only five services show a
+   photo, because only five are unmistakable in the folder: water heaters,
+   shower valves, repipes, drains/sewer, and faucets/fixtures. These six keep
+   the illustration until Sergio shoots the real thing:
+   **water softeners, reverse osmosis, gas lines, automatic shut-off valves,
+   leak detection, emergency calls.**
 
-   | Service | Photo actually shows |
-   |---|---|
-   | Water Softeners | Copper manifold and distribution |
-   | Reverse Osmosis | Kitchen sink and faucet |
-   | Leak Detection | Water lines roughed into framed walls |
-   | Emergency Plumbing | Tankless water heater install |
-
-   Each image's alt text describes what is really pictured, so no text on the
-   page claims the photo is that service. Replacing these four is the highest
-   value photo request: a softener install, an under-sink RO unit, a leak
-   trace, and any after-hours emergency call.
+   An earlier pass filled all eleven using the closest related job. It looked
+   wrong — four near-identical tankless-heater photos ended up labelled Water
+   Heaters, Gas Lines, Shut-Off Valves and Emergency, and the rough-in shots
+   were spread the same way. Reverted. Don't refill them with close-enough
+   matches; get the six photos.
 2. **Real reviews.** `reviews: []` in config is empty and the whole reviews
    section removes itself. I will not write testimonials. Give me real ones
    (name, city, what they said) and the section turns on.

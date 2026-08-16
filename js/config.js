@@ -81,7 +81,7 @@ window.SSP = {
       name: "Water Softeners",
       short: "Hard water is rough on fixtures, heaters, and skin.",
       art: "img/svc-water-softeners.svg",
-      photo: "img/photos/water-softeners.jpg",
+      photo: "",
       bullets: [
         "Whole-house softener installation",
         "Loop / bypass plumbing for new systems",
@@ -95,7 +95,7 @@ window.SSP = {
       name: "Reverse Osmosis",
       short: "Drinking water systems under the sink and whole-house.",
       art: "img/svc-reverse-osmosis.svg",
-      photo: "img/photos/reverse-osmosis.jpg",
+      photo: "",
       bullets: [
         "Under-sink reverse osmosis installation",
         "Filter and membrane replacement",
@@ -109,7 +109,7 @@ window.SSP = {
       name: "Gas Lines",
       short: "New runs, extensions, and leak repair — done to code.",
       art: "img/svc-gas-lines.svg",
-      photo: "img/photos/gas-lines.jpg",
+      photo: "",
       bullets: [
         "New gas line runs for ranges, dryers, and heaters",
         "BBQ, fire pit, and outdoor kitchen stub-outs",
@@ -123,7 +123,7 @@ window.SSP = {
       name: "Automatic Shut-Off Valves",
       short: "A valve that closes the water before the damage starts.",
       art: "img/svc-shutoff-valves.svg",
-      photo: "img/photos/shutoff-valves.jpg",
+      photo: "",
       bullets: [
         "Automatic water leak shut-off valve installation",
         "Whole-house flow monitoring",
@@ -137,7 +137,7 @@ window.SSP = {
       name: "Leak Detection",
       short: "Find it before you tear anything out.",
       art: "img/svc-leak-detection.svg",
-      photo: "img/photos/leak-detection.jpg",
+      photo: "",
       bullets: [
         "Slab leak location",
         "Wall and ceiling leak tracing",
@@ -193,7 +193,7 @@ window.SSP = {
       name: "Emergency Plumbing",
       short: "Burst line, no water, active leak — call, don't email.",
       art: "img/svc-emergency.svg",
-      photo: "img/photos/emergency.jpg",
+      photo: "",
       bullets: [
         "Burst and broken water lines",
         "Active leaks and water shut-down",
