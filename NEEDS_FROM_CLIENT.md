@@ -28,16 +28,23 @@ including materials, and must be disclosed). Ask him directly before launch.
 
 ## Content that would make it much stronger
 
-1. **More job photos — 6 services still have none.** 32 photos are in and
-   sorted (see `img/gallery/`). Five services now show real work: water
-   heaters, shower valves, gas lines, repipes, and faucets/fixtures. Still
-   illustration-only because no photo in the folder shows them:
-   **water softeners, reverse osmosis, automatic shut-off valves, leak
-   detection, drains/sewer, and emergency calls.** Those six are exactly what
-   to shoot next.
-   Also worth confirming: the gas-lines photo is the exterior tankless install
-   (`IMG_1538`) — the yellow gas line and shut-off are the subject. Swap it if
-   Sergio has a better dedicated gas job.
+1. **Four services show a related photo, not their own work.** All 11 services
+   now carry a real photo (your call). Seven are exact — water heaters, shower
+   valves, gas lines, repipes, drains, shut-off valves, faucets/fixtures.
+   Four use the **nearest available** job instead, because nothing in the
+   folder shows them:
+
+   | Service | Photo actually shows |
+   |---|---|
+   | Water Softeners | Copper manifold and distribution |
+   | Reverse Osmosis | Kitchen sink and faucet |
+   | Leak Detection | Water lines roughed into framed walls |
+   | Emergency Plumbing | Tankless water heater install |
+
+   Each image's alt text describes what is really pictured, so no text on the
+   page claims the photo is that service. Replacing these four is the highest
+   value photo request: a softener install, an under-sink RO unit, a leak
+   trace, and any after-hours emergency call.
 2. **Real reviews.** `reviews: []` in config is empty and the whole reviews
    section removes itself. I will not write testimonials. Give me real ones
    (name, city, what they said) and the section turns on.

@@ -81,7 +81,7 @@ window.SSP = {
       name: "Water Softeners",
       short: "Hard water is rough on fixtures, heaters, and skin.",
       art: "img/svc-water-softeners.svg",
-      photo: "",
+      photo: "img/photos/water-softeners.jpg",
       bullets: [
         "Whole-house softener installation",
         "Loop / bypass plumbing for new systems",
@@ -95,7 +95,7 @@ window.SSP = {
       name: "Reverse Osmosis",
       short: "Drinking water systems under the sink and whole-house.",
       art: "img/svc-reverse-osmosis.svg",
-      photo: "",
+      photo: "img/photos/reverse-osmosis.jpg",
       bullets: [
         "Under-sink reverse osmosis installation",
         "Filter and membrane replacement",
@@ -123,7 +123,7 @@ window.SSP = {
       name: "Automatic Shut-Off Valves",
       short: "A valve that closes the water before the damage starts.",
       art: "img/svc-shutoff-valves.svg",
-      photo: "",
+      photo: "img/photos/shutoff-valves.jpg",
       bullets: [
         "Automatic water leak shut-off valve installation",
         "Whole-house flow monitoring",
@@ -137,7 +137,7 @@ window.SSP = {
       name: "Leak Detection",
       short: "Find it before you tear anything out.",
       art: "img/svc-leak-detection.svg",
-      photo: "",
+      photo: "img/photos/leak-detection.jpg",
       bullets: [
         "Slab leak location",
         "Wall and ceiling leak tracing",
@@ -165,7 +165,7 @@ window.SSP = {
       name: "Drains & Sewer",
       short: "Slow, backed up, or smelling like it shouldn't.",
       art: "img/svc-drains.svg",
-      photo: "",
+      photo: "img/photos/drains.jpg",
       bullets: [
         "Kitchen, bath, and main line drain clearing",
         "Hydro jetting",
@@ -193,7 +193,7 @@ window.SSP = {
       name: "Emergency Plumbing",
       short: "Burst line, no water, active leak — call, don't email.",
       art: "img/svc-emergency.svg",
-      photo: "",
+      photo: "img/photos/emergency.jpg",
       bullets: [
         "Burst and broken water lines",
         "Active leaks and water shut-down",

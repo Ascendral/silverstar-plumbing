@@ -221,3 +221,16 @@ window.SSP_GALLERY = {
   }
  ]
 };
+window.SSP_PHOTO_ALT = {
+ "img/photos/water-heaters.jpg": "Tankless heater, copper manifold, isolation valves",
+ "img/photos/shower-valves.jpg": "Marble shower with rain head, handheld and niche",
+ "img/photos/fixtures.jpg": "Farmhouse sink with gooseneck faucet",
+ "img/photos/gas-lines.jpg": "Exterior tankless install with gas line and shut-off",
+ "img/photos/repipe.jpg": "PEX manifold and distribution under floor joists",
+ "img/photos/drains.jpg": "Drain, vent and water lines roughed in",
+ "img/photos/shutoff-valves.jpg": "Wall-mounted heater with copper manifold and shut-offs",
+ "img/photos/water-softeners.jpg": "Copper manifold and distribution",
+ "img/photos/reverse-osmosis.jpg": "Kitchen sink and faucet",
+ "img/photos/leak-detection.jpg": "Water lines roughed into framed walls",
+ "img/photos/emergency.jpg": "Tankless water heater install with gas and water manifold"
+};

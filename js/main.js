@@ -360,6 +360,14 @@
       '<a class="c2" href="' + smsHref + '">' + svg("msg") + "Text Us</a>";
   }
 
+  /* Service photos: when the photo is one of Sergio's job shots, use its real
+     caption as the alt text so the page describes what is actually pictured
+     instead of asserting the photo depicts that service. */
+  function photoAlt(s) {
+    var m = window.SSP_PHOTO_ALT;
+    return (s.photo && m && m[s.photo]) ? m[s.photo] : s.name;
+  }
+
   /* ---------- service cards ---------- */
   function renderServiceGrid() {
     var mount = el("service-grid");
@@ -370,7 +378,7 @@
     mount.innerHTML = list.map(function (s) {
       var img = art(s.photo || s.art);
       return '<a class="card" href="' + page("services.html#" + s.id, s.id) + '">' +
-        '<div class="card-art"><img src="' + img + '" alt="' + esc(s.name) + '" loading="lazy" width="800" height="600"></div>' +
+        '<div class="card-art"><img src="' + img + '" alt="' + esc(photoAlt(s)) + '" loading="lazy" width="800" height="600"></div>' +
         '<div class="card-body"><h3>' + esc(s.name) + "</h3><p>" + esc(s.short) + "</p>" +
         '<span class="card-link">Details</span></div></a>';
     }).join("");
@@ -387,7 +395,7 @@
         return "<li>" + svg("check") + "<span>" + esc(b) + "</span></li>";
       }).join("");
       return '<article class="svc" id="' + s.id + '">' +
-        '<div class="svc-art"><img src="' + img + '" alt="' + esc(s.name) + '" loading="lazy" width="800" height="600"></div>' +
+        '<div class="svc-art"><img src="' + img + '" alt="' + esc(photoAlt(s)) + '" loading="lazy" width="800" height="600"></div>' +
         "<div><h2>" + esc(s.name) + "</h2><p class=\"lede\">" + esc(s.short) + "</p><ul>" + lis + "</ul>" +
         '<p style="margin-top:1.3rem"><a class="btn btn-call" href="' + telHref + '">' + svg("phone") +
         esc(B.phone) + "</a></p></div></article>";
