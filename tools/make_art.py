@@ -10,6 +10,7 @@ drop into img/photos/ and override these via js/config.js.
 Run:  python3 tools/make_art.py
 """
 
+import math
 import os
 
 OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "img")
@@ -189,73 +190,137 @@ def scene_shower_valve():
 
 
 def scene_softener():
-    b = tank(300, 330, 160, 300, label_lines=4)
-    b += tank(500, 350, 130, 260, label_lines=3)
-    b += pipe(300, 180, 500, 180, 22)
-    b += coupling(400, 180)
-    b += pipe(300, 168, 300, 195, 22) + pipe(500, 180, 500, 225, 22)
-    b += f'<rect x="248" y="200" width="104" height="46" rx="8" fill="{NAVY}" stroke="{STEEL}" stroke-width="2"/>'
-    b += f'<circle cx="300" cy="223" r="12" fill="{ACCENT}" opacity=".9"/>'
-    for i in range(9):
-        b += f'<circle cx="{470+ (i%3)*20}" cy="{420 + (i//3)*22}" r="6" fill="{STEEL}" opacity=".55"/>'
+    """Water softener: resin tank with a control valve head, plus the brine
+    tank and the line between them."""
+    b = (f'<rect x="228" y="206" width="150" height="266" rx="70" '
+         f'fill="url(#steel)" stroke="{LINE_SOFT}" stroke-width="2.5"/>')
+    b += (f'<rect x="210" y="136" width="186" height="78" rx="16" '            # valve head
+          f'fill="{NAVY2}" stroke="{STEEL}" stroke-width="2.5"/>')
+    b += f'<rect x="230" y="158" width="62" height="28" rx="6" fill="{WATER}" opacity=".5"/>'
+    b += f'<circle cx="352" cy="172" r="15" fill="{STEEL}" stroke="{LINE_SOFT}" stroke-width="1.5"/>'
+    b += pipe(110, 175, 212, 175, 22) + pipe(394, 175, 452, 175, 22)
+    b += coupling(158, 175)
+    b += (f'<rect x="470" y="252" width="162" height="220" rx="14" '           # brine tank
+          f'fill="url(#steel)" stroke="{LINE_SOFT}" stroke-width="2.5"/>')
+    b += (f'<rect x="458" y="228" width="186" height="30" rx="10" '            # lid
+          f'fill="{STEEL}" stroke="{LINE_SOFT}" stroke-width="2"/>')
+    b += f'<rect x="496" y="298" width="110" height="152" rx="8" fill="{NAVY}" opacity=".4"/>'
+    for i in range(18):                                                        # salt
+        cx, cy = 508 + (i % 6) * 18, 424 - (i // 6) * 26
+        b += f'<circle cx="{cx}" cy="{cy}" r="7" fill="{STEEL}" opacity=".7"/>'
+    b += (f'<path d="M396,172 C444,172 452,204 452,240" fill="none" '          # brine line
+          f'stroke="{ACCENT}" stroke-width="7" stroke-linecap="round" opacity=".85"/>')
     return frame(b)
-
 
 def scene_ro():
-    b = ""
-    for i, x in enumerate((250, 360, 470)):
-        b += (f'<rect x="{x-42}" y="230" width="84" height="220" rx="20" fill="url(#glass)" '
-              f'stroke="{STEEL}" stroke-width="2.5"/>')
-        b += f'<rect x="{x-42}" y="230" width="84" height="34" rx="12" fill="url(#steel)" stroke="{LINE_SOFT}" stroke-width="1.5"/>'
-        b += f'<rect x="{x-22}" y="285" width="44" height="140" rx="12" fill="{WATER}" opacity="{.20+i*.12:.2f}"/>'
-    b += pipe(230, 205, 560, 205, 20)
-    b += pipe(560, 205, 560, 300, 20)
-    b += (f'<path d="M560,300 q0,70 -40,70 h-14" fill="none" stroke="url(#steel)" stroke-width="20" stroke-linecap="round"/>')
-    b += droplet(506, 400, .8, WATER, .95)
-    b += droplet(506, 452, .5, WATER, .6)
+    """Under-sink reverse osmosis: three filter stages, the bladder storage
+    tank, and the dedicated faucet coming up through the counter."""
+    b = f'<rect x="50" y="150" width="700" height="22" rx="6" fill="{STEEL}" opacity=".85"/>'
+    b += (f'<path d="M186,150 v-58 q0,-34 34,-34 q34,0 34,34 v20" fill="none" '  # RO faucet
+          f'stroke="url(#steel)" stroke-width="16" stroke-linecap="round"/>')
+    b += f'<rect x="245" y="108" width="18" height="18" rx="4" fill="{STEEL}"/>'
+    b += droplet(254, 140, .3, WATER, .9)
+    b += f'<rect x="150" y="248" width="330" height="18" rx="6" fill="{NAVY2}" stroke="{LINE_SOFT}" stroke-width="1.5"/>'
+    for i, x in enumerate((200, 305, 410)):
+        b += f'<rect x="{x-43}" y="234" width="86" height="34" rx="8" fill="url(#steel)" stroke="{LINE_SOFT}" stroke-width="1.5"/>'
+        b += f'<rect x="{x-36}" y="268" width="72" height="152" rx="14" fill="url(#glass)" stroke="{STEEL}" stroke-width="2"/>'
+        b += f'<rect x="{x-22}" y="298" width="44" height="108" rx="10" fill="{WATER}" opacity="{.18+i*.14:.2f}"/>'
+    b += f'<ellipse cx="606" cy="362" rx="88" ry="102" fill="url(#steel)" stroke="{LINE_SOFT}" stroke-width="2.5"/>'
+    b += f'<ellipse cx="606" cy="362" rx="54" ry="68" fill="{WATER}" opacity=".2"/>'
+    b += f'<rect x="592" y="246" width="28" height="26" rx="6" fill="{STEEL}" stroke="{LINE_SOFT}" stroke-width="1.5"/>'
+    b += (f'<path d="M453,256 C520,256 566,252 606,250" fill="none" stroke="{ACCENT}" '
+          f'stroke-width="7" stroke-linecap="round" opacity=".8"/>')
+    b += (f'<path d="M200,234 C200,198 212,178 250,172" fill="none" stroke="{ACCENT}" '
+          f'stroke-width="7" stroke-linecap="round" opacity=".8"/>')
     return frame(b)
-
 
 def scene_gas():
-    b = pipe(140, 300, 560, 300, 26)
-    b += coupling(300, 300) + coupling(470, 300)
-    b += pipe(560, 300, 560, 190, 26)
-    b += f'<circle cx="386" cy="300" r="34" fill="{NAVY}" stroke="{STEEL}" stroke-width="3"/>'
-    b += f'<rect x="378" y="252" width="16" height="52" rx="8" fill="{ALERT}"/>'
-    b += gauge(200, 200, 30)
-    b += (f'<path d="M560,120 c26,26 34,44 34,60 a34,34 0 0 1 -68,0 c0,-20 14,-34 34,-60 Z" '
-          f'fill="{FLAME}" opacity=".92"/>')
-    b += (f'<path d="M560,152 c12,14 17,24 17,32 a17,17 0 0 1 -34,0 c0,-10 7,-18 17,-32 Z" '
-          f'fill="#ffd9a3" opacity=".95"/>')
-    return frame(b)
+    """Gas line: black iron with a tee down to a capped drip leg, a lever gas
+    cock, yellow flex connector to the appliance, and a test gauge."""
+    IRON, IRON_D, IRON_L = "#55626e", "#2f3a44", "#6d7b86"
 
+    def ipipe(x1, y1, x2, y2, w=28):
+        if y1 == y2:
+            return (f'<rect x="{min(x1,x2)}" y="{y1-w/2}" width="{abs(x2-x1)}" height="{w}" '
+                    f'rx="4" fill="{IRON}" stroke="{IRON_D}" stroke-width="2"/>')
+        return (f'<rect x="{x1-w/2}" y="{min(y1,y2)}" width="{w}" height="{abs(y2-y1)}" '
+                f'rx="4" fill="{IRON}" stroke="{IRON_D}" stroke-width="2"/>')
+
+    def fitting(cx, cy, w=44, h=38):
+        return (f'<rect x="{cx-w/2}" y="{cy-h/2}" width="{w}" height="{h}" rx="5" '
+                f'fill="{IRON_L}" stroke="{IRON_D}" stroke-width="2"/>')
+
+    b = ipipe(60, 300, 470, 300)
+    b += fitting(292, 300)
+    b += ipipe(292, 300, 292, 424)
+    b += fitting(292, 434, 46, 26)
+    b += f'<rect x="392" y="276" width="68" height="48" rx="9" fill="{IRON_L}" stroke="{IRON_D}" stroke-width="2"/>'
+    b += f'<rect x="417" y="230" width="18" height="52" rx="9" fill="{FLAME}"/>'
+    b += f'<rect x="396" y="216" width="60" height="20" rx="10" fill="{FLAME}"/>'
+    b += ipipe(460, 300, 536, 300)
+    b += (f'<path d="M536,300 C600,300 600,238 656,238" fill="none" '
+          f'stroke="#e8c25a" stroke-width="24" stroke-linecap="round"/>')
+    b += (f'<path d="M536,300 C600,300 600,238 656,238" fill="none" '
+          f'stroke="#a8862f" stroke-width="24" stroke-linecap="round" '
+          f'stroke-dasharray="3 13" opacity=".7"/>')
+    b += f'<rect x="650" y="212" width="36" height="52" rx="8" fill="{STEEL}" stroke="{LINE_SOFT}" stroke-width="2"/>'
+    b += gauge(150, 190, 34)
+    b += ipipe(150, 222, 150, 288, 16)
+    return frame(b)
 
 def scene_shutoff():
-    b = pipe(120, 330, 680, 330, 30)
-    b += f'<rect x="352" y="288" width="96" height="84" rx="14" fill="url(#steel)" stroke="{LINE_SOFT}" stroke-width="2"/>'
-    b += valve_wheel(400, 268, 34)
-    b += f'<rect x="368" y="316" width="64" height="28" rx="6" fill="{NAVY}" opacity=".8"/>'
-    b += f'<circle cx="400" cy="330" r="7" fill="{ACCENT}"/>'
-    b += arcs(400, 250, 3, 62, 28, ACCENT, -160, 140)
-    b += droplet(600, 440, .9, WATER, .5)
-    b += (f'<line x1="566" y1="406" x2="634" y2="474" stroke="{ALERT}" stroke-width="7" stroke-linecap="round"/>')
+    """Automatic water shut-off valve: motorised body inline on the main,
+    status ring, and the phone alert that comes with it."""
+    b = pipe(50, 340, 750, 340, 30)
+    for x in (286, 514):                                   # union nuts
+        b += (f'<rect x="{x-15}" y="308" width="30" height="64" rx="5" '
+              f'fill="{STEEL}" stroke="{LINE_SOFT}" stroke-width="1.5"/>')
+    for x in (120, 186):                                   # flow arrows
+        b += (f'<path d="M{x},340 h26 m-10,-10 l10,10 l-10,10" fill="none" '
+              f'stroke="{WATER}" stroke-width="4.5" stroke-linecap="round" '
+              f'stroke-linejoin="round" opacity=".8"/>')
+    b += (f'<rect x="330" y="250" width="140" height="180" rx="28" '
+          f'fill="url(#steel)" stroke="{LINE_SOFT}" stroke-width="2.5"/>')
+    b += (f'<rect x="352" y="192" width="96" height="66" rx="18" '           # actuator
+          f'fill="{NAVY2}" stroke="{STEEL}" stroke-width="2.5"/>')
+    b += f'<rect x="370" y="210" width="60" height="9" rx="4.5" fill="{ACCENT}" opacity=".85"/>'
+    b += f'<circle cx="400" cy="336" r="42" fill="{NAVY}" opacity=".6"/>'
+    b += (f'<circle cx="400" cy="336" r="42" fill="none" stroke="{ACCENT}" '   # status ring
+          f'stroke-width="9" stroke-linecap="round" stroke-dasharray="198 66" '
+          f'transform="rotate(-90 400 336)"/>')
+    b += f'<circle cx="400" cy="336" r="21" fill="{NAVY}" stroke="{STEEL}" stroke-width="2"/>'
+    b += (f'<path d="M390,330 h20 M390,340 h13" stroke="{WATER}" stroke-width="3.5" '
+          f'stroke-linecap="round"/>')
+    b += f'<rect x="596" y="148" width="122" height="204" rx="20" fill="{NAVY}" stroke="{STEEL}" stroke-width="3"/>'
+    b += f'<rect x="609" y="171" width="96" height="158" rx="8" fill="{NAVY2}"/>'
+    b += f'<circle cx="657" cy="207" r="19" fill="{ALERT}"/>'
+    b += f'<path d="M657,197 v13" stroke="#fff" stroke-width="4" stroke-linecap="round"/>'
+    b += f'<circle cx="657" cy="217" r="2.6" fill="#fff"/>'
+    for i, w in enumerate((66, 52, 38)):
+        b += f'<rect x="{657-w/2}" y="{242+i*22}" width="{w}" height="8" rx="4" fill="{STEEL}" opacity=".45"/>'
     return frame(b)
-
 
 def scene_leak_detect():
-    b = f'<rect x="120" y="400" width="560" height="18" rx="6" fill="{NAVY}" opacity=".7" stroke="{LINE_SOFT}" stroke-width="1.5"/>'
-    b += pipe(120, 470, 680, 470, 26)
-    b += f'<circle cx="430" cy="470" r="9" fill="{ALERT}"/>'
-    b += droplet(430, 424, .55, WATER, .9)
-    b += arcs(430, 470, 4, 46, 30, ACCENT, -170, 160)
-    b += (f'<rect x="250" y="150" width="300" height="180" rx="18" fill="{NAVY}" '
-          f'stroke="{STEEL}" stroke-width="3"/>')
-    b += (f'<rect x="272" y="172" width="256" height="120" rx="10" fill="{NAVY2}" opacity=".85"/>')
-    pts = " ".join(f"{280+i*24},{232 + (30 if i in (5,6) else 0) - (26 if i==6 else 0)}" for i in range(11))
-    b += f'<polyline points="{pts}" fill="none" stroke="{WATER}" stroke-width="3.5" stroke-linecap="round"/>'
-    b += f'<circle cx="400" cy="312" r="7" fill="{ACCENT}"/>'
+    """Leak detection: a pressurised line leaking under the slab, located with
+    a ground microphone and a receiver rather than by demolition."""
+    b = f'<rect x="30" y="326" width="740" height="26" rx="6" fill="{STEEL}" opacity=".32"/>'
+    b += f'<rect x="30" y="352" width="740" height="128" fill="{NAVY}" opacity=".5"/>'
+    b += pipe(30, 442, 770, 442, 26)
+    b += f'<circle cx="430" cy="442" r="10" fill="{ALERT}"/>'
+    for dx, dy in ((-34, -46), (-8, -56), (20, -44)):
+        b += (f'<path d="M430,432 q{dx*0.5},{dy*0.5} {dx},{dy}" fill="none" stroke="{WATER}" '
+              f'stroke-width="5" stroke-linecap="round" opacity=".75"/>')
+    b += arcs(430, 442, 4, 50, 30, ACCENT, -170, 160)
+    b += f'<ellipse cx="430" cy="322" rx="54" ry="17" fill="{STEEL}" stroke="{LINE_SOFT}" stroke-width="2"/>'
+    b += f'<rect x="409" y="278" width="42" height="46" rx="11" fill="{NAVY2}" stroke="{STEEL}" stroke-width="2"/>'
+    b += (f'<path d="M430,278 C430,232 536,246 560,214" fill="none" stroke="{ACCENT}" '
+          f'stroke-width="6" stroke-linecap="round"/>')
+    b += f'<rect x="540" y="116" width="184" height="124" rx="16" fill="{NAVY}" stroke="{STEEL}" stroke-width="3"/>'
+    b += f'<rect x="558" y="134" width="148" height="70" rx="8" fill="{NAVY2}"/>'
+    for i, h in enumerate((16, 28, 44, 32, 20)):
+        b += f'<rect x="{574+i*27}" y="{196-h}" width="15" height="{h}" rx="3" fill="{WATER}" opacity=".85"/>'
+    b += f'<circle cx="632" cy="222" r="7" fill="{ACCENT}"/>'
     return frame(b)
-
 
 def scene_drain():
     b = f'<rect x="300" y="110" width="200" height="26" rx="8" fill="url(#steel)" stroke="{LINE_SOFT}" stroke-width="1.5"/>'
@@ -284,16 +349,28 @@ def scene_fixtures():
 
 
 def scene_emergency():
-    b = f'<circle cx="400" cy="300" r="150" fill="{ALERT}" opacity=".10"/>'
-    b += arcs(400, 300, 3, 170, 26, ALERT, -120, 60)
-    b += droplet(400, 268, 2.4, WATER, .85)
-    b += (f'<path d="M392,300 h30 l-34,58 h34" fill="none" stroke="{NAVY}" stroke-width="10" '
-          f'stroke-linecap="round" stroke-linejoin="round"/>')
-    b += pipe(90, 470, 710, 470, 28)
-    b += valve_wheel(240, 440, 26)
-    b += gauge(600, 430, 26)
+    """Emergency: a ruptured line spraying, and the main ball valve being shut."""
+    import math
+    b = pipe(30, 300, 770, 300, 34)
+    b += (f'<path d="M348,300 q28,-9 56,0" fill="none" stroke="{NAVY}" '
+          f'stroke-width="11" stroke-linecap="round"/>')
+    b += (f'<path d="M352,286 l15,-13 l11,15 l17,-11 l9,17" fill="none" stroke="{NAVY}" '
+          f'stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>')
+    for a in (-64, -44, -24, -4, 16):
+        r = math.radians(a - 90)
+        b += (f'<path d="M376,282 L{376+128*math.cos(r):.0f},{282+128*math.sin(r):.0f}" '
+              f'stroke="{WATER}" stroke-width="6" stroke-linecap="round" opacity=".65"/>')
+    for dx, dy, s in ((-92, -128, .34), (10, -158, .28), (86, -120, .32)):
+        b += droplet(376 + dx, 282 + dy, s, WATER, .55)
+    b += f'<rect x="558" y="266" width="100" height="68" rx="11" fill="url(#steel)" stroke="{LINE_SOFT}" stroke-width="2.5"/>'
+    b += f'<rect x="600" y="192" width="17" height="80" rx="8" fill="{ALERT}"/>'
+    b += f'<rect x="572" y="176" width="90" height="23" rx="11" fill="{ALERT}"/>'
+    b += f'<circle cx="608" cy="300" r="13" fill="{NAVY}" stroke="{STEEL}" stroke-width="2"/>'
+    b += (f'<path d="M162,198 l60,104 h-120 Z" fill="{ALERT}" opacity=".93" '
+          f'stroke="{NAVY}" stroke-width="3" stroke-linejoin="round"/>')
+    b += f'<path d="M162,232 v36" stroke="#fff" stroke-width="7" stroke-linecap="round"/>'
+    b += f'<circle cx="162" cy="284" r="4.6" fill="#fff"/>'
     return frame(b)
-
 
 def scene_hero():
     """Wide hero band, 1600x900."""
