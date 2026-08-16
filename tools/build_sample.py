@@ -29,27 +29,45 @@ def read(*parts):
         return f.read()
 
 
+MIME = {".svg": "image/svg+xml", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png"}
+
+
 def data_uri(rel):
-    raw = read(*rel.split("/")).encode("utf-8")
-    return "data:image/svg+xml;base64," + base64.b64encode(raw).decode("ascii")
+    with open(os.path.join(ROOT, *rel.split("/")), "rb") as f:
+        raw = f.read()
+    mime = MIME[os.path.splitext(rel)[1].lower()]
+    return "data:%s;base64,%s" % (mime, base64.b64encode(raw).decode("ascii"))
 
 
 def art_map():
-    """Every SVG in img/ as path -> data URI, for window.SSP_ART."""
+    """Every illustration and job photo the one-pager uses, as path -> data URI.
+
+    The gallery (img/gallery/) is deliberately excluded — 32 photos would make
+    the single file far too heavy to text or email. The gallery lives on
+    work.html on the real site."""
     out = {}
     for name in sorted(os.listdir(os.path.join(ROOT, "img"))):
         if name.endswith(".svg"):
             out["img/" + name] = data_uri("img/" + name)
+    photos = os.path.join(ROOT, "img", "photos")
+    if os.path.isdir(photos):
+        for name in sorted(os.listdir(photos)):
+            if os.path.splitext(name)[1].lower() in MIME:
+                out["img/photos/" + name] = data_uri("img/photos/" + name)
     return out
 
 
 ART = art_map()
 
 
+HERO_CSS_REF = 'url("../img/photos/hero.jpg")'
+
+
 def css():
     """Stylesheet with the hero background rewritten to an inline data URI."""
     s = read("css", "style.css")
-    return s.replace('url("../img/hero.svg")', 'url("%s")' % ART["img/hero.svg"])
+    assert HERO_CSS_REF in s, "hero background reference changed — update HERO_CSS_REF"
+    return s.replace(HERO_CSS_REF, 'url("%s")' % ART["img/photos/hero.jpg"])
 
 
 def js_art_map():
@@ -293,7 +311,7 @@ def main():
     markup = re.sub(r"<script>.*?</script>", "", standalone, flags=re.S)
     bad = re.findall(r'(?:src|href)="(?!#|tel:|sms:|mailto:|https?:|data:)([^"]+)"', markup)
     assert not bad, "sample still references external files: %s" % set(bad)
-    assert "img/hero.svg" not in css(), "hero background was not inlined"
+    assert "../img/" not in css(), "an image reference in the CSS was not inlined"
     print("OK — no un-inlined local references in the sample")
 
 

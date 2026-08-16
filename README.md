@@ -52,9 +52,18 @@ weight. Regenerate after any palette change:
 python3 tools/make_art.py
 ```
 
-Real job photos beat this. Drop them in `img/photos/`, set the `photo:` field
-on the matching service in `js/config.js`, and the illustration is replaced —
-no other change needed.
+Real job photos beat this and 32 of them are now in. `tools/import_photos.py`
+reads the client's photo folder, fixes orientation, **strips EXIF** (phone
+photos of customers' homes carry GPS), resizes, and writes both the per-service
+photos and the categorised gallery manifest `js/gallery-data.js`:
+
+```bash
+python3 tools/import_photos.py
+```
+
+The category and per-service assignments live at the top of that script. A
+photo is only attached to a service it actually depicts — six services still
+show illustrations because nothing in the folder shows them.
 
 ## The client sample
 

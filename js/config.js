@@ -53,7 +53,7 @@ window.SSP = {
       name: "Water Heaters",
       short: "Tank and tankless — repair, replacement, and new installs.",
       art: "img/svc-water-heaters.svg",
-      photo: "",
+      photo: "img/photos/water-heaters.jpg",
       bullets: [
         "Tank water heater replacement and repair",
         "Tankless installation and descaling",
@@ -67,7 +67,7 @@ window.SSP = {
       name: "Shower & Tub Valves",
       short: "Leaking, seized, or scalding valves swapped out clean.",
       art: "img/svc-shower-valves.svg",
-      photo: "",
+      photo: "img/photos/shower-valves.jpg",
       bullets: [
         "Shower and tub valve replacement",
         "Anti-scald / pressure-balancing valve upgrades",
@@ -109,7 +109,7 @@ window.SSP = {
       name: "Gas Lines",
       short: "New runs, extensions, and leak repair — done to code.",
       art: "img/svc-gas-lines.svg",
-      photo: "",
+      photo: "img/photos/gas-lines.jpg",
       bullets: [
         "New gas line runs for ranges, dryers, and heaters",
         "BBQ, fire pit, and outdoor kitchen stub-outs",
@@ -151,7 +151,7 @@ window.SSP = {
       name: "Repipes & Water Lines",
       short: "Whole-house repipes and main water line replacement.",
       art: "img/svc-repipe.svg",
-      photo: "",
+      photo: "img/photos/repipe.jpg",
       bullets: [
         "Whole-house repipe (PEX and copper)",
         "Main water line replacement",
@@ -179,7 +179,7 @@ window.SSP = {
       name: "Faucets, Toilets & Fixtures",
       short: "The everyday stuff, done right the first time.",
       art: "img/svc-fixtures.svg",
-      photo: "",
+      photo: "img/photos/fixtures.jpg",
       bullets: [
         "Faucet and sink installation",
         "Toilet repair, rebuild, and replacement",

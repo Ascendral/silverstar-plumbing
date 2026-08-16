@@ -28,13 +28,16 @@ including materials, and must be disclosed). Ask him directly before launch.
 
 ## Content that would make it much stronger
 
-1. **Real job photos.** The artwork on the site right now is illustration I
-   generated — it is deliberately abstract and clearly not photography, so it
-   reads as brand art rather than a fake stock photo of somebody else's work.
-   Ten to twenty real photos (water heater installs, repipes, softener loops,
-   a clean finished bathroom) would beat it in every way. Drop them in
-   `img/photos/` and set the `photo:` field on the matching service in
-   `js/config.js` — it overrides the illustration automatically.
+1. **More job photos — 6 services still have none.** 32 photos are in and
+   sorted (see `img/gallery/`). Five services now show real work: water
+   heaters, shower valves, gas lines, repipes, and faucets/fixtures. Still
+   illustration-only because no photo in the folder shows them:
+   **water softeners, reverse osmosis, automatic shut-off valves, leak
+   detection, drains/sewer, and emergency calls.** Those six are exactly what
+   to shoot next.
+   Also worth confirming: the gas-lines photo is the exterior tankless install
+   (`IMG_1538`) — the yellow gas line and shut-off are the subject. Swap it if
+   Sergio has a better dedicated gas job.
 2. **Real reviews.** `reviews: []` in config is empty and the whole reviews
    section removes itself. I will not write testimonials. Give me real ones
    (name, city, what they said) and the section turns on.
